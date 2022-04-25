@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+ 
 <html>
   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
@@ -9,11 +9,16 @@
     <a-scene embedded arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
      
         <a-assets>
+            <!--afegim una textura-->
+            <img id="imatge1" src="or.jpg">
+
         </a-assets>
      
         <a-marker type="barcode" value="1">
             <a-entity>  
-                <a-box position="0 0.1 0" scale="1.5 1.5 1.5" color="red" ></a-box>
+            <!--animem el box a la vegada que indiquem quina imatge s'ha de carregar-->
+                <a-box position="0 0.1 0" scale="1.5 1.5 1.5" src="#imatge1" animation="property: rotation; dur: 6000;
+                to: 0 360 0; loop: true"></a-box>                
             </a-entity>
         </a-marker>
      
