@@ -1,74 +1,96 @@
 <!DOCTYPE html>
- 
 <html>
   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <!-- we import arjs version without NFT but with marker + location based support -->
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
  
-   
-  <body style="margin : 0px; overflow: hidden;">
-    <a-scene embedded arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
-     
-        <a-assets>
-            <!--afegim una textura-->
-            <img id="imatge1" src="prova1.jpg">
-            <img id="imatge1" src="prova2.png">
-            <img id="imatge1" src="prova3.png">
-            <img id="imatge1" src="prova4.png">
-            <img id="imatge1" src="prova5.png">
-            <img id="imatge1" src="prova6.png">
-
-
-        </a-assets>
-     
-        <a-marker type="barcode" value="1">
-            <a-entity>  
-            <!--animem el box a la vegada que indiquem quina imatge s'ha de carregar-->
-                <a-box position="0 0.1 0" scale="1.5 1.5 1.5" src="prova1.jpg" animation="property: rotation; dur: 6000;
-                to: 0 360 0; loop: true"></a-box>
-            </a-entity>
-        </a-marker>
-          <a-marker type="barcode" value="2">
-            <a-entity>  
-            <!--animem el box a la vegada que indiquem quina imatge s'ha de carregar-->
-                             <a-box position="0 0.1 0" scale="1.5 1.5 1.5" src="prova2.png" animation="property: rotation; dur: 6000;
-                to: 0 360 0; loop: true"></a-box>
+  <!--necesitem aquest script per a controlar el video -->
+  <script>
+  AFRAME.registerComponent('vidhandler', {
+    init: function () {
+      this.toggle = false;
+      document.querySelector("#vid").play(); //reference to the video
+    },
+    tick:function(){  
+     if(document.querySelector("a-marker").object3D.visible == true){
+       if(!this.toggle){
+         this.toggle = true;
+         document.querySelector("#vid").play();
+       }
+     }else{
+       //this.toggle = false;
+       //document.querySelector("#vid").pause();
+     }
+    }
+  });
+</script>
  
+  <body style="margin : 0px; overflow: hidden;">
+    <a-scene embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+     
+      <a-assets>
+       
+         <img id="titol" src="esfera.jpg">
+         <img id="volum" src="volum.jpg">
+         <img id="pregunta" src="pregunta.jpg">
+         <video id="vid" autoplay="true" loop="true" src="v2.mp4"></video>
+         <a-asset-item id="animated-asset" src="scene.gltf"></a-asset-item>
+         
+      </a-assets>
+ 
+     
+      <a-marker type='barcode' value='5'>
+        <a-entity>
+            <a-plane position="0 0.1 0" rotation="270 0 0" scale="1.5 1.5 1.5" src=#pregunta ></a-plane>
+           
+        </a-entity>
+      </a-marker>
+     
+     
+      <a-marker type='barcode' value='2'>
+       
+        <a-entity>
+             <a-plane position="0 0.1 0" rotation="270 0 0" scale="1.5 1.5 1.5" src=#volum ></a-plane>
+        </a-entity>
+      </a-marker>
+     
+         
+       <a-marker type='barcode' value='4'>
+           <a-entity>
+            <a-sphere position="0 0.1 0" radius="0.5" color="blue"
+            animation="property: position; dur: 500; from: 0 0.1 0; to: 0 1 0; dir: alternate; loop: true"
+            ></a-sphere>
+       
             </a-entity>
         </a-marker>
-          <a-marker type="barcode" value="3">
+ 
+        <a-marker type='barcode' value='1'>
             <a-entity>  
-            <!--animem el box a la vegada que indiquem quina imatge s'ha de carregar-->
-
-                                          <a-box position="0 0.1 0" scale="1.5 1.5 1.5" src="prova3.png" animation="property: rotation; dur: 6000;
-                to: 0 360 0; loop: true"></a-box> 
+                   <a-plane position="0 0.1 0" rotation="270 0 0" scale="1.5 1.5 1.5 " src=#titol ></a-plane>
+           </a-entity>
+        </a-marker>
+       
+         <a-marker type='barcode' value='6'>
+            <a-video src=#vid  position="0 0.1 0" rotation="270 180 0" scale="1.5 1.5 1.5" autoplay="true" loop="true" vidhandler></a-video>
+               
+         </a-marker>
+   
+         <a-marker id="animated-marker" type='barcode' value='3'>
+            <a-entity
+             gltf-model="#animated-asset"
+             scale="0.11 0.11 0.11"
+             position="0 0.2 0"
+             animation="property: rotation; dur: 500;
+                      to: 0 360 0; loop: true"
+                    >
             </a-entity>
-        </a-marker> 
-       <a-marker type="barcode" value="6">
-            <a-entity>  
-            <!--animem el box a la vegada que indiquem quina imatge s'ha de carregar-->
-
-                                          <a-box position="0 0.1 0" scale="1.5 1.5 1.5" src="prova6.png" animation="property: rotation; dur: 6000;
-                to: 0 360 0; loop: true"></a-box> 
-            </a-entity>
-        </a-marker> 
-       <a-marker type="barcode" value="4">
-            <a-entity>  
-            <!--animem el box a la vegada que indiquem quina imatge s'ha de carregar-->
-
-                                          <a-box position="0 0.1 0" scale="1.5 1.5 1.5" src="prova4.png" animation="property: rotation; dur: 6000;
-                to: 0 360 0; loop: true"></a-box> 
-            </a-entity>
-        </a-marker> 
-       <a-marker type="barcode" value="5">
-            <a-entity>  
-            <!--animem el box a la vegada que indiquem quina imatge s'ha de carregar-->
-
-                                          <a-box position="0 0.1 0" scale="1.5 1.5 1.5" src="prova5.png" animation="property: rotation; dur: 6000;
-                to: 0 360 0; loop: true"></a-box> 
-            </a-entity>
-        </a-marker> 
-        <a-entity camera>
-        </a-entity>
+ 
+         </a-marker>
+ 
+ 
+     
+     
+      <a-entity camera></a-entity>
     </a-scene>
   </body>
 </html>
