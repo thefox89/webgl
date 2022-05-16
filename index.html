@@ -1,96 +1,46 @@
-<!DOCTYPE html>
 <html>
   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-  <!-- we import arjs version without NFT but with marker + location based support -->
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
- 
-  <!--necesitem aquest script per a controlar el video -->
-  <script>
-  AFRAME.registerComponent('vidhandler', {
-    init: function () {
-      this.toggle = false;
-      document.querySelector("#vid").play(); //reference to the video
-    },
-    tick:function(){  
-     if(document.querySelector("a-marker").object3D.visible == true){
-       if(!this.toggle){
-         this.toggle = true;
-         document.querySelector("#vid").play();
-       }
-     }else{
-       //this.toggle = false;
-       //document.querySelector("#vid").pause();
-     }
-    }
-  });
-</script>
- 
   <body style="margin : 0px; overflow: hidden;">
-    <a-scene embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
-     
-      <a-assets>
-       
-         <img id="titol" src="esfera.jpg">
-         <img id="volum" src="volum.jpg">
-         <img id="pregunta" src="pregunta.jpg">
-         <video id="vid" autoplay="true" loop="true" src="v2.mp4"></video>
-         <a-asset-item id="animated-asset" src="scene.gltf"></a-asset-item>
-         
+    
+    
+    <a-scene embedded arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+    
+       <a-assets>
+            <!--afegim una textura-->
+            <img id="titulo" src="https://cdn.glitch.global/ae0f4715-df25-402e-b4b3-087cad3eaea0/titulo.png?v=1652110703500"/>
+            <img id="calculo" src="https://cdn.glitch.global/ae0f4715-df25-402e-b4b3-087cad3eaea0/como_calcular_el_volumen_de_una_esfera_37114_paso_1_600.jpg?v=1652106865071"/>
+            <img id="pregunta" src="https://cdn.glitch.global/ae0f4715-df25-402e-b4b3-087cad3eaea0/pregunta.png?v=1652111210323"/>
+
       </a-assets>
- 
-     
-      <a-marker type='barcode' value='5'>
-        <a-entity>
-            <a-plane position="0 0.1 0" rotation="270 0 0" scale="1.5 1.5 1.5" src=#pregunta ></a-plane>
-           
-        </a-entity>
-      </a-marker>
-     
-     
-      <a-marker type='barcode' value='2'>
-       
-        <a-entity>
-             <a-plane position="0 0.1 0" rotation="270 0 0" scale="1.5 1.5 1.5" src=#volum ></a-plane>
-        </a-entity>
-      </a-marker>
-     
-         
-       <a-marker type='barcode' value='4'>
-           <a-entity>
-            <a-sphere position="0 0.1 0" radius="0.5" color="blue"
-            animation="property: position; dur: 500; from: 0 0.1 0; to: 0 1 0; dir: alternate; loop: true"
-            ></a-sphere>
-       
+                   
+        <a-marker type="barcode" value="1">
+            <a-entity> 
+              <a-plane position="0 0.1 0" rotation="270 0 0" scale="1.5 1.5 1.5 " src="#titulo" ></a-plane>
             </a-entity>
         </a-marker>
- 
-        <a-marker type='barcode' value='1'>
-            <a-entity>  
-                   <a-plane position="0 0.1 0" rotation="270 0 0" scale="1.5 1.5 1.5 " src=#titol ></a-plane>
-           </a-entity>
-        </a-marker>
-       
-         <a-marker type='barcode' value='6'>
-            <a-video src=#vid  position="0 0.1 0" rotation="270 180 0" scale="1.5 1.5 1.5" autoplay="true" loop="true" vidhandler></a-video>
-               
-         </a-marker>
-   
-         <a-marker id="animated-marker" type='barcode' value='3'>
-            <a-entity
-             gltf-model="#animated-asset"
-             scale="0.11 0.11 0.11"
-             position="0 0.2 0"
-             animation="property: rotation; dur: 500;
-                      to: 0 360 0; loop: true"
-                    >
+      
+        <a-marker type="barcode" value="2">
+            <a-entity> 
+              <a-plane position="0 0.1 0" rotation="270 0 0" scale="1.5 1.5 1.5 " src="#calculo" ></a-plane>
             </a-entity>
- 
-         </a-marker>
- 
- 
-     
-     
-      <a-entity camera></a-entity>
+        </a-marker>
+      
+        <a-marker type="barcode" value="4">
+            <a-entity> 
+  	            <a-sphere position="0 2 0" radius="1" color="#ff0" animation="property: position; dur: 500; from: 0 0.1 0; to: 0 1 0; dir: alternate; loop: true"></a-sphere>
+            </a-entity>
+        </a-marker>
+      
+        <a-marker type="barcode" value="5">
+            <a-entity> 
+              <a-plane position="0 0.1 0" rotation="270 0 0" scale="1.5 1.5 1.5 " src="#pregunta"></a-plane>
+          </a-entity>
+        </a-marker>   
+    
+    
+    
     </a-scene>
   </body>
 </html>
+
